@@ -2,7 +2,7 @@
 
 A clean, fast static e-portfolio site built with plain HTML/CSS/JS — no frameworks, no build tools needed. Just open a file and edit.
 
-**Live site:** `https://yourusername.github.io/eportfolio` *(replace after deploying)*
+**Live site:** `https://ikaazhar.github.io/e-portfolio/` 
 
 ---
 
