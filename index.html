@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My E-Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg:          #0F172A;
+      --surface:     #1E293B;
+      --surface-2:   #273548;
+      --border:      #334155;
+      --accent:      #06B6D4;
+      --accent-dim:  rgba(6, 182, 212, 0.15);
+      --text:        #F8FAFC;
+      --text-muted:  #94A3B8;
+      --text-dim:    #64748B;
+      --green:       #10B981;
+      --radius:      12px;
+      --radius-lg:   20px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #F8FAFC 0%, #06B6D4 60%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .hero-bio {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      line-height: 1.75;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0F172A;
+    }
+
+    .btn-primary:hover { background: #22D3EE; text-decoration: none; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* ============================================================
+       ABOUT STRIP
+    ============================================================ */
+    .about-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .about-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .about-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .about-section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .skills-list li {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+    }
+
+    /* ============================================================
+       PROJECTS SECTION
+    ============================================================ */
+    .projects-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ---- Year Tabs ---- */
+    .year-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      padding: 0.6rem 1.2rem;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .tab-btn:hover { color: var(--text-muted); }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      margin-left: 0.4rem;
+      color: var(--text-muted);
+    }
+
+    .tab-btn.active .tab-count {
+      background: var(--accent-dim);
+      border-color: rgba(6,182,212,0.3);
+      color: var(--accent);
+    }
+
+    /* ---- Year Panel ---- */
+    .year-panel { display: none; }
+    .year-panel.active { display: block; }
+
+    .year-panel-header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .year-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(6,182,212,0.25);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+    }
+
+    .year-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ---- Project Grid ---- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ---- Project Card ---- */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6,182,212,0.4);
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.08);
+    }
+
+    .card-image {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .card-image img {
+      height: 100%;
+      transition: transform 0.35s ease;
+    }
+
+    .project-card:hover .card-image img {
+      transform: scale(1.04);
+    }
+
+    .card-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    .card-image-placeholder svg {
+      width: 36px;
+      height: 36px;
+      opacity: 0.4;
+    }
+
+    .card-type-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .card-body {
+      padding: 1.25rem 1.25rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+
+    .card-footer {
+      padding: 0.85rem 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-report-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      transition: gap 0.2s;
+    }
+
+    .card-report-link:hover { gap: 0.65rem; text-decoration: none; }
+
+    .card-report-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ---- Empty state ---- */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .contact-inner h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-inner p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 700px) {
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .projects-section { padding: 3rem 1.25rem; }
+      .nav-links { display: none; }
+      .year-tabs { gap: 0; }
+      .tab-btn { padding: 0.6rem 0.9rem; font-size: 0.88rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name { animation: none; }
+      .project-card, .card-image img { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-logo" id="nav-name"><!-- filled by JS --></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<header class="hero" id="home">
+  <div class="hero-eyebrow" id="hero-eyebrow"><!-- filled by JS --></div>
+  <h1 class="hero-name" id="hero-name"><!-- filled by JS --></h1>
+  <p class="hero-tagline" id="hero-tagline"><!-- filled by JS --></p>
+  <p class="hero-bio" id="hero-bio"><!-- filled by JS --></p>
+  <div class="hero-links" id="hero-links"><!-- filled by JS --></div>
+</header>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section class="about-strip" id="about">
+  <div class="about-inner" id="about-inner"><!-- filled by JS --></div>
+</section>
+
+<!-- ============================================================
+     PROJECTS
+============================================================ -->
+<section class="projects-section" id="projects">
+  <h2 class="section-heading">Projects</h2>
+  <p class="section-sub">Browse my academic work across all three years of study.</p>
+
+  <div class="year-tabs" id="year-tabs" role="tablist"><!-- filled by JS --></div>
+  <div id="year-panels"><!-- filled by JS --></div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner" id="contact-inner"><!-- filled by JS --></div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer" id="site-footer"><!-- filled by JS --></footer>
+
+
+<!-- ============================================================
+  ╔══════════════════════════════════════════════════════════════╗
+  ║                  YOUR PORTFOLIO DATA                        ║
+  ║                                                              ║
+  ║  Edit this section to update your e-portfolio.               ║
+  ║  No other code needs to change.                              ║
+  ╚══════════════════════════════════════════════════════════════╝
+============================================================ -->
+<script>
+
+/* ------------------------------------------------------------------
+   SECTION 1: PERSONAL INFO
+   ------------------------------------------------------------------ */
+const PROFILE = {
+  name:       "Your Full Name",         // Your name shown in big hero text
+  eyebrow:    "B.Sc. Computer Science · E-Portfolio",  // Small label above name
+  tagline:    "Student Developer · Problem Solver · Lifelong Learner",
+  bio:        "A passionate computing student at XYZ University exploring software development, data science, and human-computer interaction. This portfolio showcases three years of academic projects and growth.",
+
+  // Social / contact links shown below bio
+  // type: "primary" = filled cyan button | "outline" = bordered button
+  links: [
+    { label: "GitHub",    url: "https://github.com/yourusername",   type: "outline" },
+    { label: "LinkedIn",  url: "https://linkedin.com/in/yourprofile", type: "outline" },
+    { label: "Email Me",  url: "mailto:you@email.com",              type: "primary"  },
+  ],
+};
+
+
+/* ------------------------------------------------------------------
+   SECTION 2: ABOUT / SKILLS
+   Each block has a heading and either `text` (paragraph) or `skills` (tag list).
+   ------------------------------------------------------------------ */
+const ABOUT_BLOCKS = [
+  {
+    heading: "About Me",
+    text: "I'm currently in my final year studying Computer Science. I enjoy building things that are both functional and user-friendly, with a particular interest in web technologies and machine learning applications.",
+  },
+  {
+    heading: "Technical Skills",
+    skills: [
+      "Python", "JavaScript", "HTML/CSS", "React",
+      "Java", "SQL", "Git", "Figma",
+      "Machine Learning", "Data Analysis",
+    ],
+  },
+];
+
+
+/* ------------------------------------------------------------------
+   SECTION 3: CONTACT SECTION
+   ------------------------------------------------------------------ */
+const CONTACT = {
+  heading:   "Let's Connect",
+  message:   "Interested in my work or have a question? Feel free to reach out — I'm always happy to chat about projects, internships, or collaboration.",
+  links: [
+    { label: "📧 Email",    url: "mailto:you@email.com",              type: "primary"  },
+    { label: "GitHub",      url: "https://github.com/yourusername",   type: "outline"  },
+    { label: "LinkedIn",    url: "https://linkedin.com/in/yourprofile", type: "outline" },
+  ],
+};
+
+
+/* ------------------------------------------------------------------
+   SECTION 4: PROJECTS  ← THE MAIN SECTION TO KEEP UPDATING
+   
+   Structure:
+     year:        "Year 1" | "Year 2" | "Year 3"
+     description: A short summary of what you studied/focused on that year.
+     projects:    Array of project objects (see below).
+
+   Each project object:
+     title:       Project name
+     image:       Path to a preview image  e.g. "assets/images/my-app.png"
+                  Leave as "" to show a placeholder icon instead.
+     description: 2–3 sentences about what the project is and what you did.
+     tags:        Array of short technology or topic labels
+     type:        Short category label shown on the card image (e.g. "Web App")
+     reportUrl:   Link to your full report PDF or GitHub repo.
+                  e.g. "https://github.com/yourusername/repo/blob/main/report.pdf"
+                  or   "assets/reports/year1-project1.pdf"
+   ------------------------------------------------------------------ */
+const YEARS = [
+  {
+    year: "Year 1",
+    description: "First year focused on programming fundamentals, problem solving, and introductory software development. Projects here reflect core CS concepts and early hands-on practice.",
+    projects: [
+      {
+        title:       "Library Management System",
+        image:       "",  // replace with: "assets/images/library-system.png"
+        description: "A console-based application built in Java to manage book borrowing, returns, and member registrations. Implemented core data structures including linked lists and binary search trees.",
+        tags:        ["Java", "OOP", "Data Structures"],
+        type:        "Desktop App",
+        reportUrl:   "https://github.com/yourusername/library-system",
+      },
+      {
+        title:       "Personal Budget Tracker",
+        image:       "",
+        description: "A Python CLI tool that lets users log income and expenses, view monthly summaries, and export data as CSV. Introduced file I/O and basic data processing.",
+        tags:        ["Python", "CSV", "CLI"],
+        type:        "Tool",
+        reportUrl:   "https://github.com/yourusername/budget-tracker",
+      },
+      // ← ADD MORE YEAR 1 PROJECTS HERE (copy a project block above)
+    ],
+  },
+
+  {
+    year: "Year 2",
+    description: "Second year introduced web development, databases, and software engineering principles. Projects involved full development cycles from requirements gathering to deployment.",
+    projects: [
+      {
+        title:       "Student Attendance Web App",
+        image:       "",
+        description: "A full-stack web application built with Flask and SQLite that allows lecturers to take attendance digitally and generate reports. Implemented user authentication and role-based access.",
+        tags:        ["Python", "Flask", "SQLite", "HTML/CSS"],
+        type:        "Web App",
+        reportUrl:   "https://github.com/yourusername/attendance-app",
+      },
+      {
+        title:       "E-Commerce Database Design",
+        image:       "",
+        description: "Designed and implemented a normalized relational database schema for an e-commerce platform. Wrote complex SQL queries for inventory tracking, order history, and analytics.",
+        tags:        ["SQL", "MySQL", "Database Design", "ERD"],
+        type:        "Database",
+        reportUrl:   "https://github.com/yourusername/ecommerce-db",
+      },
+      // ← ADD MORE YEAR 2 PROJECTS HERE
+    ],
+  },
+
+  {
+    year: "Year 3",
+    description: "Final year work focuses on advanced topics including machine learning, system design, and a major capstone project. These represent my most polished and complex work to date.",
+    projects: [
+      {
+        title:       "Sentiment Analysis Dashboard",
+        image:       "",
+        description: "An end-to-end NLP pipeline that classifies product reviews using a fine-tuned BERT model, with a React dashboard for real-time visualization of sentiment trends across product categories.",
+        tags:        ["Python", "NLP", "React", "BERT", "Machine Learning"],
+        type:        "ML Project",
+        reportUrl:   "https://github.com/yourusername/sentiment-dashboard",
+      },
+      {
+        title:       "Final Year Project: Smart Campus Navigation",
+        image:       "",
+        description: "A mobile-first web app using indoor positioning and graph-based pathfinding to help students navigate a multi-building campus. Capstone project completed in collaboration with university facilities team.",
+        tags:        ["React", "Node.js", "Graph Algorithms", "REST API"],
+        type:        "Capstone",
+        reportUrl:   "https://github.com/yourusername/campus-nav",
+      },
+      // ← ADD MORE YEAR 3 PROJECTS HERE
+    ],
+  },
+];
+
+
+/* ------------------------------------------------------------------
+   SECTION 5: FOOTER TEXT
+   ------------------------------------------------------------------ */
+const FOOTER_TEXT = `© ${new Date().getFullYear()} ${PROFILE.name} · Built with ♥ and plain HTML`;
+
+
+/* ================================================================
+   RENDERER — no need to edit below this line
+   ================================================================ */
+
+function icon(name) {
+  const icons = {
+    arrow: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>`,
+    image: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>`,
+  };
+  return icons[name] || '';
+}
+
+function makeBtn(link) {
+  return `<a href="${link.url}" target="_blank" rel="noopener" class="btn btn-${link.type}">${link.label}</a>`;
+}
+
+function renderHero() {
+  document.getElementById('nav-name').innerHTML = `<span>${PROFILE.name.split(' ')[0]}</span>${PROFILE.name.split(' ').slice(1).map(w => ' ' + w).join('')}`;
+  document.getElementById('hero-eyebrow').textContent = PROFILE.eyebrow;
+  document.getElementById('hero-name').textContent = PROFILE.name;
+  document.getElementById('hero-tagline').textContent = PROFILE.tagline;
+  document.getElementById('hero-bio').textContent = PROFILE.bio;
+  document.getElementById('hero-links').innerHTML = PROFILE.links.map(makeBtn).join('');
+}
+
+function renderAbout() {
+  document.getElementById('about-inner').innerHTML = ABOUT_BLOCKS.map(block => `
+    <div class="about-section">
+      <h3>${block.heading}</h3>
+      ${block.text   ? `<p>${block.text}</p>` : ''}
+      ${block.skills ? `<ul class="skills-list">${block.skills.map(s => `<li>${s}</li>`).join('')}</ul>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderProjects() {
+  const tabsEl   = document.getElementById('year-tabs');
+  const panelsEl = document.getElementById('year-panels');
+
+  tabsEl.innerHTML = YEARS.map((y, i) => `
+    <button
+      class="tab-btn${i === 0 ? ' active' : ''}"
+      role="tab"
+      aria-selected="${i === 0}"
+      data-index="${i}"
+    >
+      ${y.year}
+      <span class="tab-count">${y.projects.length}</span>
+    </button>
+  `).join('');
+
+  panelsEl.innerHTML = YEARS.map((y, i) => `
+    <div class="year-panel${i === 0 ? ' active' : ''}" data-index="${i}" role="tabpanel">
+      <div class="year-panel-header">
+        <span class="year-badge">${y.year}</span>
+        <p class="year-desc">${y.description}</p>
+      </div>
+      <div class="projects-grid">
+        ${y.projects.length === 0
+          ? `<div class="empty-state">No projects added yet for ${y.year}. Edit <code>YEARS</code> in the script to add one!</div>`
+          : y.projects.map(p => renderCard(p)).join('')
+        }
+      </div>
+    </div>
+  `).join('');
+
+  // Tab switching
+  tabsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    const idx = btn.dataset.index;
+    tabsEl.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    panelsEl.querySelectorAll('.year-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    panelsEl.querySelector(`.year-panel[data-index="${idx}"]`).classList.add('active');
+  });
+}
+
+function renderCard(p) {
+  const imageContent = p.image
+    ? `<img src="${p.image}" alt="${p.title} preview" loading="lazy" />`
+    : `<div class="card-image-placeholder">${icon('image')}<span>No preview yet</span></div>`;
+
+  return `
+    <article class="project-card">
+      <div class="card-image">
+        ${imageContent}
+        <span class="card-type-badge">${p.type}</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">${p.title}</h3>
+        <p class="card-desc">${p.description}</p>
+        <div class="card-tags">
+          ${p.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="card-footer">
+        <a href="${p.reportUrl}" target="_blank" rel="noopener" class="card-report-link">
+          View Full Report ${icon('arrow')}
+        </a>
+      </div>
+    </article>
+  `;
+}
+
+function renderContact() {
+  document.getElementById('contact-inner').innerHTML = `
+    <h2>${CONTACT.heading}</h2>
+    <p>${CONTACT.message}</p>
+    <div class="contact-links">${CONTACT.links.map(makeBtn).join('')}</div>
+  `;
+}
+
+function renderFooter() {
+  document.getElementById('site-footer').textContent = FOOTER_TEXT;
+}
+
+// Boot
+renderHero();
+renderAbout();
+renderProjects();
+renderContact();
+renderFooter();
+
+</script>
+</body>
+</html>
