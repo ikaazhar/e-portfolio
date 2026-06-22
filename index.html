@@ -785,6 +785,22 @@ const YEARS = [
         reportUrl:   "assets/reports/3rd year/Report ESDM Ika.docx (2).pdf",
       },
       {
+        title:       "Project PPG: Recoverable Assets (RA) & Inventory Risk Management (IRM)",
+        image:       "assets/images/year3/ppg project.jpg",
+        description: "In collaboration with PPG Coatings (M) Sdn Bhd, I co-developed an end-to-end automated data pipeline to minimize raw material tracking errors and prevent inventory stockouts. Using a Waterfall project methodology, we leveraged Azure Data Factory to ingest cross-departmental logs into the cloud. I then engineered a three-tier Medallion Architecture (Bronze, Silver, Gold) inside Azure Databricks with PySpark to enforce strict data governance and cleaning standards. The final pipeline delivers actionable insights into Inventory Risk Management, bridging the gap between raw factory logs and strategic business planning.",
+        tags:        ["Azure Data Factory", "Databricks", "Medallion Architecture", "Supply Chain"],
+        type:        "Enterprise Cloud Data Pipeline",
+        reportUrl:   "assets/reports/3rd year/PPG PROJECT DOCUMENTATION full.pdf",
+      },
+      {
+        title:       "IKM JB Academic Staff System",
+        image:       "assets/images/year3/E-ducator.jpg",
+        description: "In collaboration with IKM Johor Bahru, I co-developed and enhanced a web-based academic management system to streamline staff administration and improve system security. Using an Agile development approach, I engineered a hierarchical user management module supporting five role levels — Admin, Timbalan Pengarah Akademik, Ketua Jabatan, Ketua Program, and Lecturer — with a structured approval workflow that enforces access control at both application and database level via Supabase Row Level Security. I extended the authentication layer to handle pending, rejected, and deactivated account states, and integrated a cross-module notification system that merges attendance warnings with real-time booking alerts into a unified notification panel. The final system was deployed to Netlify with automated CI/CD via GitHub Actions, delivering a production-ready platform accessible to clients through the internet.",
+        tags:        ["Flutter", "Supabase", "PostgreSQL", "Role-Based Access Control", "Netlify"],
+        type:        "Academic Management Web Application",
+        reportUrl:   "https://e-ducator.netlify.app/",
+      },
+      {
         title:       "MS Azure Tutorial",
         image:       "assets/images/year3/tuto 1 st.jpg",
         description: "I implemented an automated, cloud-native data pipeline using Microsoft Azure to eliminate localized data silos. Leveraging Azure Data Factory for secure orchestration, I ingested raw source files into centralized cloud storage. I then engineered a multi-tiered Medallion Architecture using Azure Databricks, transforming raw assets through Bronze, Silver, and Gold layers to enforce schema standardizations and data quality. Finally, I mapped the processed data into Azure Synapse Analytics to prepare the pipeline for seamless end-user visual business intelligence.",
